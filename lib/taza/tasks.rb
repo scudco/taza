@@ -3,6 +3,7 @@ require 'rake/testtask'
 require 'rubygems'
 require 'taglob/rake/tasks'
 require 'spec/rake/spectask'
+require 'cucumber/rake/task'
 
 def tags
   ENV['TAGS']
@@ -21,10 +22,10 @@ namespace :spec do
     t.spec_files = Dir.taglob('spec/functional/**/*_spec.rb',tags)
     t.spec_opts << format_options("functional/all")
   end
-  desc "Run all integration specs"
-  Spec::Rake::SpecTask.new :integration do |t|
-    t.spec_files = Dir.taglob('spec/integration/**/*_spec.rb',tags)
-    t.spec_opts << format_options("integration/all")
+
+  desc "Run all features"
+  Cucumber::Rake::Task.new do |t|
+    t.cucumber_opts = "--format pretty"
   end
 
   namespace :functional do
