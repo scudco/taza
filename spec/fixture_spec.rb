@@ -3,32 +3,38 @@ require 'taza'
 
 describe Taza::Fixture do
   
-  it "should be able to load entries from fixtures" do
-    Taza::Fixture.any_instance.stubs(:base_path).returns('./spec/sandbox')
-    fixture = Taza::Fixture.new
-    fixture.load_all
-    example = fixture.get_fixture_entity(:examples,'first_example')
-    example.name.should eql("first")
-    example.price.should eql(1)
+  it "should create a Fixture for each fixture file" do
+    Taza::Fixture.stubs(:base_path).returns('./spec/sandbox')
+    fixtures = Taza::Fixture.load_all
+    fixtures.size.should eql(2)
+  end
+
+  it "should create a Fixture from a yaml file" do
+    fixture = Taza::Fixture.load_file('./spec/sandbox/fixtures/examples.yml')
+    fixture.entities.size.should eql(2)
+  end
+
+  it "should create a Fixture with a name from yaml file" do
+    fixture = Taza::Fixture.load_file('./spec/sandbox/fixtures/examples.yml')
+    fixture.name.should eql('examples')
+  end
+
+  it "should create a Fixture with Entities" do
+    fixture = Taza::Fixture.load_file('./spec/sandbox/fixtures/examples.yml')
+    entity = fixture.entity('first_example')
+    entity.name.should eql("first")
+    entity.price.should eql(1)
+  end
+
+  it "should load fixture files from the fixtures_pattern" do
+    Taza::Fixture.stubs(:base_path).returns('./spec/sandbox')
+
   end
 
   it "should use the spec folder as the base path" do
-    Taza::Fixture.new.base_path.should eql('./spec')
+    Taza::Fixture.base_path.should eql('./spec')
   end
 
-  it "should know if a pluralized fixture of that name exists" do
-    Taza::Fixture.any_instance.stubs(:base_path).returns('./spec/sandbox')
-    fixture = Taza::Fixture.new
-    fixture.load_all
-    fixture.pluralized_fixture_exists?('example').should be_true
-    fixture.pluralized_fixture_exists?('foo').should be_false
-  end
-  
-  it "should be able to get all fixtures loaded" do
-    Taza::Fixture.any_instance.stubs(:base_path).returns('./spec/sandbox')
-    fixture = Taza::Fixture.new
-    fixture.load_all
-    fixture.fixture_names.should be_equivalent([:examples,:users])
-  end
+  it "should know if a pluralized fixture of that name exists"
 
 end
