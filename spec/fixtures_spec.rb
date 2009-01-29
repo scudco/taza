@@ -18,4 +18,12 @@ describe Taza::Fixtures do
     examples(:first_example).user.name.should eql(users(:shatner).name)
   end
   
+  it "should be able to resolve one to many relationships" do
+    foos(:gap).examples.length.should eql(2)
+  end
+  
+  it "should be able to get one to many entities" do
+    foos(:gap).examples['first_example'].name.should eql('first')
+    foos(:gap).examples['second_example'].name.should eql('second')
+  end
 end

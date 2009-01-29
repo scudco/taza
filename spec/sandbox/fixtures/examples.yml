@@ -6,3 +6,7 @@ second_example:
   name: second
   price: 2
   user: shatner
+third_example:
+  name: third
+  price: 3
+  user: shatner

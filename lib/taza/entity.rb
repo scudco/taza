@@ -1,4 +1,5 @@
 module Taza
+
   class Entity
     #Creates a entity, pass in a hash to be methodized and the fixture to look up other fixtures (not entirely happy with this abstraction)
     def initialize(hash,fixture)
@@ -18,7 +19,9 @@ module Taza
 
     #This method will lookup another fixture if a pluralized fixture exists otherwise return the value in the hash
     def get_value_for_entry(key) # :nodoc:
-      if @fixture.pluralized_fixture_exists?(key)
+      if @fixture.fixture_exists?(key)
+        @fixture.specific_fixture_entities(key.to_sym, @hash[key])
+      elsif @fixture.pluralized_fixture_exists?(key)
         @fixture.get_fixture_entity(key.pluralize_to_sym,@hash[key])
       else
         @hash[key]

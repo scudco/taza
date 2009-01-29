@@ -18,13 +18,26 @@ module Taza
     def fixture_names # :nodoc:
       @fixtures.keys
     end
+
+    def get_fixture(fixture_file_key)
+      @fixtures[fixture_file_key]
+    end  
     
     def get_fixture_entity(fixture_file_key,entity_key) # :nodoc:
       @fixtures[fixture_file_key][entity_key]
     end
 
     def pluralized_fixture_exists?(singularized_fixture_name) # :nodoc:
-      fixture_names.include?(singularized_fixture_name.pluralize_to_sym)
+      fixture_exists?(singularized_fixture_name.pluralize_to_sym)
+    end
+    
+    def specific_fixture_entities(fixture_key, select_array)
+      cloned_fixture = @fixtures[fixture_key].clone
+      cloned_fixture.delete_if {|key , value| !select_array.include?(key)}
+    end
+
+    def fixture_exists?(fixture_name)
+      fixture_names.include?(fixture_name.to_sym)
     end
 
     def fixtures_pattern # :nodoc:
