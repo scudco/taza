@@ -28,7 +28,7 @@ describe Taza::Fixture do
     Taza::Fixture.any_instance.stubs(:base_path).returns('./spec/sandbox')
     fixture = Taza::Fixture.new
     fixture.load_all
-    fixture.fixture_names.should be_equivalent([:examples,:users,:foos])
+    fixture.fixture_names.should be_equivalent([:examples,:users,:foos,:bars])
   end
 
   it "should be able to get specific fixture entities" do

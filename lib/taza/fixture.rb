@@ -41,7 +41,7 @@ module Taza
     end
 
     def fixtures_pattern # :nodoc:
-      File.join(base_path, 'fixtures','*.yml')
+      File.join(base_path, 'fixtures','**','*.yml')
     end
 
     def base_path # :nodoc:
