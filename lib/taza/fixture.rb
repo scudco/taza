@@ -1,3 +1,5 @@
+require "erb"
+
 module Taza
   class Fixture # :nodoc:
 
@@ -7,8 +9,9 @@ module Taza
 
     def load_all # :nodoc:
       Dir.glob(fixtures_pattern) do |file|
+        templatized_fixture=ERB.new(File.read(file))
         entitized_fixture = {}
-        YAML.load_file(file).each do |key, value|
+        YAML.load(templatized_fixture.result()).each do |key, value|
           entitized_fixture[key] = value.convert_hash_keys_to_methods(self)
         end
         @fixtures[File.basename(file,'.yml').to_sym] = entitized_fixture

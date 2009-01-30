@@ -1,2 +1,3 @@
 shatner:
   name: William Shatner
+  age: <%=65+1%>
