@@ -12,7 +12,7 @@ ARTIFACTS_DIR = 'artifacts'
 RCOV_THRESHOLD = 100.0
 RCOV_DIR = File.join(ARTIFACTS_DIR,"rcov")
 
-FLOG_THRESHOLD = 40.0
+FLOG_THRESHOLD = 37.0
 FLOG_REPORT = File.join(ARTIFACTS_DIR,"flog_report.txt")
 FLOG_LINE = /^(.*): \((\d+\.\d+)\)/
 
