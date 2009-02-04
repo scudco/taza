@@ -27,11 +27,12 @@ describe Taza::Fixtures do
     foos(:gap).examples['second_example'].name.should eql('second')
   end
 
+  it "should not be able to access fixtures in sub-folders if not included" do
+    lambda{bars(:foo)}.should raise_error(NoMethodError)
+  end
+
   it "should template fixture files" do
     users(:shatner).age.should eql(66)
-  end
-  it "should be able to access fixtures in sub-folders" do
-    bars(:foo).name.should eql("foo")
   end
 
 end

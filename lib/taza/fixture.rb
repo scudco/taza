@@ -1,3 +1,4 @@
+require 'find'
 require "erb"
 
 module Taza
@@ -7,8 +8,10 @@ module Taza
       @fixtures = {}
     end
 
-    def load_all # :nodoc:
-      Dir.glob(fixtures_pattern) do |file|
+    def load_all(fixtures_pattern) # :nodoc:
+      index_of_fixtures = fixtures_pattern.index("fixtures")
+      truncated_pattern = fixtures_pattern[index_of_fixtures..-1]
+      Dir.glob(File.join(base_path,truncated_pattern)) do |file|
         templatized_fixture=ERB.new(File.read(file))
         entitized_fixture = {}
         YAML.load(templatized_fixture.result()).each do |key, value|
@@ -43,13 +46,9 @@ module Taza
       fixture_names.include?(fixture_name.to_sym)
     end
 
-    def fixtures_pattern # :nodoc:
-      File.join(base_path, 'fixtures','**','*.yml')
-    end
-
-    def base_path # :nodoc:
-      File.join('.','spec')
-    end
+   def base_path # :nodoc:
+     File.join('.','spec')
+   end
   end
   
   # The module that will mixin methods based on the fixture files in your 'spec/fixtures'
@@ -65,18 +64,25 @@ module Taza
   # jane_smith:
   #   first_name: jane
   #   last_name: smith
-  module Fixtures
-    def Fixtures.included(other_module) # :nodoc:
-      fixture = Fixture.new
-      fixture.load_all
-      fixture.fixture_names.each do |fixture_name|
-        self.class_eval do
-          define_method(fixture_name) do |entity_key|
-            fixture.get_fixture_entity(fixture_name,entity_key.to_s)
+    dirs = Dir.glob(File.join(Fixture.new.base_path,"**","**")).select {|d| File.directory?(d) }
+    dirs[0,0] = File.join(Fixture.new.base_path,"fixtures")
+    dirs.each do |mod|
+      base_module = mod == dirs[0] ? "" : "Fixtures::"
+      self.class_eval <<-EOS
+      module #{base_module}#{mod.split('/')[-1].camelize}
+        def self.included(other_module) 
+          fixture = Fixture.new
+          fixture.load_all(File.join("#{mod}","*.yml"))
+          fixture.fixture_names.each do |fixture_name|
+            self.class_eval do
+              define_method(fixture_name) do |entity_key|
+                fixture.get_fixture_entity(fixture_name,entity_key.to_s)
+              end
+            end
           end
         end
       end
-    end
-  end
-
+      EOS
+   end
 end
+
