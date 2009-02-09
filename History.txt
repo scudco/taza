@@ -1,3 +1,9 @@
+=== 0.8.4
+
+* Added one to many relationship in fixtures
+* Added Templating of fixtures
+* Added Site Secific fixtures
+
 === 0.8.2 / 2009-01-11
 
 * Added Partials
