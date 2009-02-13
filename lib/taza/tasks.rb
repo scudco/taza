@@ -26,27 +26,22 @@ module Taza
 
       def define
         namespace :spec do
-          desc "Run all functional specs"
-          define_spec_task(:functional,'spec/functional/**/*_spec.rb')
-          desc "Run all integration specs"
-          define_spec_task(:integration,'spec/integration/**/*_spec.rb')
-
-          namespace :functional do
-            Dir.glob('./spec/functional/*/').each do |dir|
-              site_name = File.basename(dir)
-              desc "Run all functional specs for #{site_name}"
-              define_spec_task(site_name,"#{dir}**/*_spec.rb")
-
-              namespace site_name do
-                Dir.glob("./spec/functional/#{site_name}/*_spec.rb").each do |page_spec_file|
-                  page_name = File.basename(page_spec_file,'_spec.rb')
-                  define_spec_task(page_name,page_spec_file)
-                end
-              end
-
-            end
+          Dir.glob('./spec/*/').each do |dir|
+            recurse_to_create_rake_tasks(dir)
           end
-
+        end
+      end
+      def recurse_to_create_rake_tasks(dir)
+        basename = File.basename(dir)
+        define_spec_task(basename,File.join(dir,"**","*_spec.rb"))
+        namespace basename do
+          Dir.glob(File.join(dir,"*_spec.rb")).each do |spec_file|
+            spec_name = File.basename(spec_file,'_spec.rb')
+            define_spec_task(spec_name,spec_file)
+          end
+          Dir.glob(File.join(dir,"*/")).each do |sub_dir|
+            recurse_to_create_rake_tasks(sub_dir)
+          end
         end
       end
     end
