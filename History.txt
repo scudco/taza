@@ -3,6 +3,7 @@
 * Added one to many relationship in fixtures
 * Added Templating of fixtures
 * Added Site Secific fixtures
+* Spec Rake Tasks are now generated Recursively
 
 === 0.8.2 / 2009-01-11
 
