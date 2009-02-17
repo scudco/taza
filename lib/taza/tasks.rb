@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rake'
-require 'taglob/rake/tasks'
+require 'taglob'
 require 'spec/rake/spectask'
 
 def tags
