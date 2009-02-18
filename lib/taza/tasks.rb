@@ -33,14 +33,17 @@ module Taza
       end
       def recurse_to_create_rake_tasks(dir)
         basename = File.basename(dir)
-        define_spec_task(basename,File.join(dir,"**","*_spec.rb"))
-        namespace basename do
-          Dir.glob(File.join(dir,"*_spec.rb")).each do |spec_file|
-            spec_name = File.basename(spec_file,'_spec.rb')
-            define_spec_task(spec_name,spec_file)
-          end
-          Dir.glob(File.join(dir,"*/")).each do |sub_dir|
-            recurse_to_create_rake_tasks(sub_dir)
+        spec_pattern = File.join(dir,"**","*_spec.rb")
+        if (not Dir.glob(spec_pattern).empty?)
+          define_spec_task(basename,spec_pattern)
+          namespace basename do
+            Dir.glob(File.join(dir,"*_spec.rb")).each do |spec_file|
+              spec_name = File.basename(spec_file,'_spec.rb')
+              define_spec_task(spec_name,spec_file)
+            end
+            Dir.glob(File.join(dir,"*/")).each do |sub_dir|
+              recurse_to_create_rake_tasks(sub_dir)
+            end
           end
         end
       end
