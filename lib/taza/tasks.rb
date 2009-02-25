@@ -31,6 +31,7 @@ module Taza
           end
         end
       end
+
       def recurse_to_create_rake_tasks(dir)
         basename = File.basename(dir)
         spec_pattern = File.join(dir,"**","*_spec.rb")
@@ -47,6 +48,7 @@ module Taza
           end
         end
       end
+
     end
   end
 end
