@@ -46,8 +46,8 @@ module Taza
       fixture_names.include?(fixture_name.to_sym)
     end
 
-   def base_path # :nodoc:
-     File.join('.','spec')
+   def self.base_path # :nodoc:
+     File.join('.','spec','')
    end
   end
   
@@ -64,15 +64,15 @@ module Taza
   # jane_smith:
   #   first_name: jane
   #   last_name: smith
-    dirs = Dir.glob(File.join(Fixture.new.base_path,"**","**")).select {|d| File.directory?(d) }
-    dirs[0,0] = File.join(Fixture.new.base_path,"fixtures")
-    dirs.each do |mod|
-      base_module = mod == dirs[0] ? "" : "Fixtures::"
+  dirs = Dir.glob(File.join(Fixture.base_path,'fixtures','*/'))
+  dirs.unshift File.join(Fixture.base_path,'fixtures','')
+  dirs.each do |dir|
+    mod = dir.sub(Fixture.base_path,'').sub(/#{File::SEPARATOR}$/,'')
       self.class_eval <<-EOS
-      module #{base_module}#{mod.split('/')[-1].camelize}
+      module #{mod.camelize}
         def self.included(other_module) 
           fixture = Fixture.new
-          fixture.load_all(File.join("#{mod}","*.yml"))
+          fixture.load_all(File.join("#{dir}","*.yml"))
           fixture.fixture_names.each do |fixture_name|
             self.class_eval do
               define_method(fixture_name) do |entity_key|
@@ -83,6 +83,6 @@ module Taza
         end
       end
       EOS
-   end
+  end
 end
 
