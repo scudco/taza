@@ -1,7 +1,7 @@
 require 'spec/spec_helper'
 require 'rubygems'
 require 'fileutils'
-require 'taza'
+require 'taza/page'
 
 describe "Page Generation" do
   include RubiGen::GeneratorTestHelper

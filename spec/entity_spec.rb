@@ -1,5 +1,5 @@
 require 'spec/spec_helper'
-require 'taza'
+require 'taza/entity'
 
 describe Taza::Entity do
   it "should add methods for hash string keys" do

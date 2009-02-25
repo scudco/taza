@@ -4,6 +4,19 @@ require 'extensions/hash'
 require 'taza/entity'
 
 module Taza
+  # The module that will mixin methods based on the fixture files in your 'spec/fixtures'
+  # 
+  # Example:
+  #   describe "something" do
+  #     it "should test something" do
+  #       users(:jane_smith).first_name.should eql("jane")
+  #     end
+  #   end
+  # 
+  #  where there is a spec/fixtures/users.yml file containing a entry of:
+  # jane_smith:
+  #   first_name: jane
+  #   last_name: smith
   class Fixture # :nodoc:
 
     def initialize # :nodoc:
@@ -51,38 +64,5 @@ module Taza
    end
   end
   
-  # The module that will mixin methods based on the fixture files in your 'spec/fixtures'
-  # 
-  # Example:
-  #   describe "something" do
-  #     it "should test something" do
-  #       users(:jane_smith).first_name.should eql("jane")
-  #     end
-  #   end
-  # 
-  #  where there is a spec/fixtures/users.yml file containing a entry of:
-  # jane_smith:
-  #   first_name: jane
-  #   last_name: smith
-  dirs = Dir.glob(File.join(Fixture.base_path,'*/'))
-  dirs.unshift Fixture.base_path
-  dirs.each do |dir|
-    mod = dir.sub(Fixture.base_path,File.join(File.basename(Fixture.base_path),'')).camelize.sub(/::$/,'')
-      self.class_eval <<-EOS
-      module #{mod}
-        def self.included(other_module) 
-          fixture = Fixture.new
-          fixture.load_fixtures_from('#{dir}')
-          fixture.fixture_names.each do |fixture_name|
-            self.class_eval do
-              define_method(fixture_name) do |entity_key|
-                fixture.get_fixture_entity(fixture_name,entity_key.to_s)
-              end
-            end
-          end
-        end
-      end
-      EOS
-  end
 end
 

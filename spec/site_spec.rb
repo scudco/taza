@@ -1,6 +1,10 @@
 require 'spec/spec_helper'
 require 'rubygems'
-require 'taza'
+require 'taza/site'
+require 'taza/settings'
+require 'taza/browser'
+require 'taza/page'
+require 'taza/flow'
 
 describe Taza::Site do
 

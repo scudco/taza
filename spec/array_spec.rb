@@ -1,4 +1,5 @@
 require 'spec/spec_helper'
+require 'extensions/array'
 
 describe 'Array Extensions' do
   it "should know if elements are not equivilent to a subset of those elements" do

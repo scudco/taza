@@ -2,7 +2,6 @@ require 'spec/spec_helper'
 require 'rubygems'
 require 'rake'
 require 'fileutils'
-require 'taza'
 
 describe "Project Generator" do
   include RubiGen::GeneratorTestHelper

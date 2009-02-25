@@ -1,6 +1,7 @@
 require 'spec/spec_helper'
 require 'rubygems'
-require 'taza'
+require 'taza/settings'
+require 'taza/site'
 
 describe Taza::Settings do
   

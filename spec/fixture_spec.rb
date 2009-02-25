@@ -1,5 +1,6 @@
 require 'spec/spec_helper'
-require 'taza'
+require 'taza/fixture'
+require 'extensions/array'
 
 describe Taza::Fixture do
   before :each do

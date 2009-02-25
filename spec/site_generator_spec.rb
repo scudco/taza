@@ -1,7 +1,6 @@
 require 'spec/spec_helper'
 require 'rubygems'
 require 'fileutils'
-require 'taza'
 
 describe "Site Generation" do
   include RubiGen::GeneratorTestHelper

@@ -4,22 +4,11 @@ require 'taza/browser'
 require 'taza/settings'
 require 'taza/flow'
 require 'taza/entity'
-require 'taza/fixture'
+require 'taza/fixtures'
 require 'extensions/object'
 require 'extensions/string'
 require 'extensions/hash'
 require 'extensions/array'
-
-module Taza
-  VERSION = '0.8.1'
-
-  def self.windows?
-    PLATFORM.include?("mswin")  
-  end 
-  def self.osx?
-    PLATFORM.include?("darwin")
-  end
-end
 
 module ForwardInitialization
   module ClassMethods
