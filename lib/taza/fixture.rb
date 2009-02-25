@@ -1,5 +1,7 @@
 require 'find'
-require "erb"
+require 'erb'
+require 'extensions/hash'
+require 'taza/entity'
 
 module Taza
   class Fixture # :nodoc:
@@ -8,10 +10,8 @@ module Taza
       @fixtures = {}
     end
 
-    def load_all(fixtures_pattern) # :nodoc:
-      index_of_fixtures = fixtures_pattern.index("fixtures")
-      truncated_pattern = fixtures_pattern[index_of_fixtures..-1]
-      Dir.glob(File.join(base_path,truncated_pattern)) do |file|
+    def load_fixtures_from(dir) # :nodoc:
+      Dir.glob(File.join(dir,'*.yml')) do |file|
         templatized_fixture=ERB.new(File.read(file))
         entitized_fixture = {}
         YAML.load(templatized_fixture.result()).each do |key, value|
@@ -34,7 +34,7 @@ module Taza
     end
 
     def pluralized_fixture_exists?(singularized_fixture_name) # :nodoc:
-      fixture_exists?(singularized_fixture_name.pluralize_to_sym)
+      fixture_exists?(singularized_fixture_name.pluralize.to_sym)
     end
     
     def specific_fixture_entities(fixture_key, select_array)
@@ -47,7 +47,7 @@ module Taza
     end
 
    def self.base_path # :nodoc:
-     File.join('.','spec','')
+     File.join('.','spec','fixtures','')
    end
   end
   
@@ -64,15 +64,15 @@ module Taza
   # jane_smith:
   #   first_name: jane
   #   last_name: smith
-  dirs = Dir.glob(File.join(Fixture.base_path,'fixtures','*/'))
-  dirs.unshift File.join(Fixture.base_path,'fixtures','')
+  dirs = Dir.glob(File.join(Fixture.base_path,'*/'))
+  dirs.unshift Fixture.base_path
   dirs.each do |dir|
-    mod = dir.sub(Fixture.base_path,'').sub(/#{File::SEPARATOR}$/,'')
+    mod = dir.sub(Fixture.base_path,File.join(File.basename(Fixture.base_path),'')).camelize.sub(/::$/,'')
       self.class_eval <<-EOS
-      module #{mod.camelize}
+      module #{mod}
         def self.included(other_module) 
           fixture = Fixture.new
-          fixture.load_all(File.join("#{dir}","*.yml"))
+          fixture.load_fixtures_from('#{dir}')
           fixture.fixture_names.each do |fixture_name|
             self.class_eval do
               define_method(fixture_name) do |entity_key|
