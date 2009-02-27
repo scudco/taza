@@ -38,9 +38,9 @@ describe "Site Generation" do
     File.directory?(File.join(@site_folder,"pages","partials")).should be_true
   end
 
-  it "should generate a folder for a sites functional tests" do
+  it "should generate a folder for a sites isolation tests" do
     run_generator('site', [@site_name], generator_sources)
-    File.directory?(File.join(PROJECT_FOLDER,'spec','functional','wikipedia_foo')).should be_true
+    File.directory?(File.join(PROJECT_FOLDER,'spec','isolation','wikipedia_foo')).should be_true
   end
   
   it "generated site that uses the block given in new" do

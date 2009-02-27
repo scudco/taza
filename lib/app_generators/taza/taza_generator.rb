@@ -31,7 +31,7 @@ class TazaGenerator < RubiGen::Base
     BASEDIRS.each { |path| m.directory path }
     m.directory File.join('lib','sites')
     m.directory File.join('lib','flows')
-    m.directory File.join('spec','functional')
+    m.directory File.join('spec','isolation')
     m.directory File.join('spec','integration')
     m.directory File.join('spec','story')
   end
