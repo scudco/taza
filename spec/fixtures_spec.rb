@@ -36,4 +36,8 @@ describe "Taza::Fixtures" do
     users(:shatner).age.should eql(66)
   end
 
+  it "should be able to get one to many entities for hash[key] style" do
+    foos(:gap)['examples']['first_example']['name'].should eql('first')
+  end
+
 end

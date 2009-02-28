@@ -1,6 +1,8 @@
 === 0.8.5
 
 * Fixed Fixtures bugs
+* Fixture entities can be accessed like hashes(foo[:bar])
+* Functional tests are now 'isolation' tests
 
 === 0.8.4
 
