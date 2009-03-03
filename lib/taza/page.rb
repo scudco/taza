@@ -32,7 +32,12 @@ module Taza
     #   end
     # homepage.foo.click
     def self.element(name,&block)
-      self.elements[name] = block
+      if !@module.nil?
+        self.elements[@module] = Hash.new if self.elements[@module].nil?
+        self.elements[@module] = self.elements[@module].merge({ name => block })
+      else
+        self.elements[name] = block
+      end
     end
 
     # A filter for elemenet(s) on a page
@@ -64,20 +69,33 @@ module Taza
       end
     end
 
-    def initialize
-      add_element_methods
+    def self.page_module(name,&block)
+      @module = name
+      yield(block)
+      @module = nil
+    end
+
+    def initialize(page_module = nil)
+      add_element_methods(page_module)
       @active_filters = []
     end
 
-    def add_element_methods # :nodoc:
+    def add_element_methods(page_module = nil) # :nodoc:
       self.class.elements.each do |element_name,element_block|
-        filters = self.class.filters[element_name] + self.class.filters[:all]
-        add_element_method(:filters => filters, :element_name => element_name, :element_block => element_block)
+        if (element_block.is_a?(Hash) && !page_module.nil? && page_module==element_name)
+          element_block.each do |key,value|
+            filters = self.class.filters[key] + self.class.filters[:all]
+            add_element_method(:filters => filters, :element_name => key, :element_block => value)
+          end
+        else
+          filters = self.class.filters[element_name] + self.class.filters[:all]
+          add_element_method(:filters => filters, :element_name => element_name, :element_block => element_block)
+        end
       end
     end
 
     def add_element_method(params) # :nodoc:
-      self.class.class_eval do
+      metaclass.class_eval do
         define_method(params[:element_name]) do |*args|
           check_filters(params)
           self.instance_exec(*args,&params[:element_block])

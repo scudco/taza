@@ -1,6 +1,10 @@
 # instance_exec comes with >1.8.7 thankfully
 if VERSION <= '1.8.6'
   class Object
+    def metaclass
+      class << self; self; end
+    end
+
     module InstanceExecHelper; end
     include InstanceExecHelper
     # instance_exec method evaluates a block of code relative to the specified object, with parameters whom come from outside the object.
