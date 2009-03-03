@@ -93,7 +93,7 @@ module Taza
         page_name = File.basename(file,'.rb')
         page_class = "#{@module_name}::#{page_name.camelize}"
         self.class.class_eval <<-EOS
-        def #{page_name}(page_module)
+        def #{page_name}
           page = '#{page_class}'.constantize.new
           page.browser = @browser
           yield page if block_given?
