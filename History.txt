@@ -3,6 +3,7 @@
 * Fixed Fixtures bugs
 * Fixture entities can be accessed like hashes(foo[:bar])
 * Functional tests are now 'isolation' tests
+* Added Page-Module feature
 
 === 0.8.4
 
