@@ -71,5 +71,34 @@ describe "Taza Page Module" do
     page_module.another_module_element.should eql(:nothing)
   end
 
+  class PageWithFilterAndModule < ::Taza::Page
+    page_module :module do
+      element(:sample_element) {:something}
+    end
+    filter :sample_filter, :module
+    def sample_filter
+      true
+    end
+  end
+
+  it "should execute filters for page modules" do
+    page = PageWithFilterAndModule.new(:module)
+    page.sample_element.should eql(:something)
+  end
+
+ class PageWithFalseFilterAndModule < ::Taza::Page
+    page_module :module do
+      element(:sample_element) {:something}
+    end
+    filter :false_filter, :module
+    def false_filter
+      false
+    end
+  end
+
+  it "should raise an error for page-module filters that return false" do
+    page = PageWithFalseFilterAndModule.new(:module)
+    lambda { page.sample_element }.should raise_error(Taza::FilterError)
+  end
 
 end

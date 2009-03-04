@@ -84,7 +84,7 @@ module Taza
       self.class.elements.each do |element_name,element_block|
         if (element_block.is_a?(Hash) && !page_module.nil? && page_module==element_name)
           element_block.each do |key,value|
-            filters = self.class.filters[key] + self.class.filters[:all]
+            filters = self.class.filters[element_name] + self.class.filters[:all]
             add_element_method(:filters => filters, :element_name => key, :element_block => value)
           end
         else

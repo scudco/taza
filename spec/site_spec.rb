@@ -230,4 +230,23 @@ describe Taza::Site do
     browser
   end
 
+  it "should yield an instance of page class that can access page-module specific elements" do
+    f = Foo.new(:browser => stub_browser)
+    barzor = nil
+    f.baz(:module) do |baz|
+      barzor = baz
+    end
+    barzor.should be_an_instance_of(Baz)
+    barzor.some_element.should eql(:some_element_value)
+  end
+
+  it "should raise an error when accessing an element taht belongs to another module" do
+    f = Foo.new(:browser => stub_browser)
+    barzor = nil
+    f.baz(:another_module) do |baz|
+      barzor = baz
+    end
+    lambda{barzor.other_element}.should raise_error(NoMethodError)
+  end
+
 end

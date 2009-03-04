@@ -26,3 +26,8 @@ if VERSION <= '1.8.6'
     end
   end
 end
+class Object
+  def metaclass
+    class << self; self; end
+  end
+end
