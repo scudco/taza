@@ -10,3 +10,6 @@ third_example:
   name: third
   price: 3
   user: shatner
+forth_example:
+  something:
+    user: shatner

@@ -12,4 +12,8 @@ describe Taza::Entity do
     entity[:apple].should eql('pie')
   end
 
+  it "should be able to define methods for multiple levels" do
+    entity = Taza::Entity.new({:fruits => {:apple => 'pie'} },nil)
+    entity.fruits.apple.should eql('pie')
+  end
 end

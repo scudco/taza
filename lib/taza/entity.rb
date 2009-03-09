@@ -20,16 +20,26 @@ module Taza
     #This method will lookup another fixture if a pluralized fixture exists otherwise return the value in the hash
     def get_value_for_entry(key) # :nodoc:
       if @fixture.nil?
-        @hash[key]
+        create_entity_if_value_is_hash(key)
       elsif @fixture.fixture_exists?(key)
         @fixture.specific_fixture_entities(key.to_sym, @hash[key])
       elsif @fixture.pluralized_fixture_exists?(key)
         @fixture.get_fixture_entity(key.pluralize.to_sym,@hash[key])
       else
-        @hash[key]
+        create_entity_if_value_is_hash(key)
       end
     end
     alias :[] :get_value_for_entry
+    
+    def create_entity_if_value_is_hash(key)
+      if (@fixture.nil? && @hash[key].is_a?(Hash))
+          Entity.new(@hash[key], nil)
+      elsif (!@fixture.nil? && @hash[key].is_a?(Hash))
+          Entity.new(@hash[key], @fixture)
+      else
+          @hash[key]
+      end
+    end
 
     private
     def create_method(name, &block) # :nodoc:
