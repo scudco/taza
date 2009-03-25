@@ -41,6 +41,10 @@ module Taza
       end
     end
 
+    def to_hash
+      @hash
+    end
+
     private
     def create_method(name, &block) # :nodoc:
       self.class.send(:define_method, name, &block)
