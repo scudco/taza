@@ -1,5 +1,6 @@
 === 0.8.6
 
+* Added feature to keep browser open after tests
 * Added access to multiple levels in Fixtures
 * Added feature to return a Hash in Fixtures 
 
