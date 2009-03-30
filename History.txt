@@ -1,3 +1,8 @@
+=== 0.8.6
+
+* Added access to multiple levels in Fixtures
+* Added feature to return a Hash in Fixtures 
+
 === 0.8.5
 
 * Fixed Fixtures bugs

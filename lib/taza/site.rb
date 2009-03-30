@@ -18,6 +18,7 @@ module Taza
   #   end
   class Site
     @@before_browser_closes = Proc.new() {}
+    @@donot_close_browser = false
     # Use this to do something with the browser before it closes, but note that it is a class method which
     # means that this will get called for any instance of a site.
     #
@@ -28,6 +29,10 @@ module Taza
     #   end
     def self.before_browser_closes(&block)
       @@before_browser_closes = block
+    end
+
+    def self.donot_close_browser
+      @@donot_close_browser = true
     end
     attr_accessor :browser
 
@@ -81,7 +86,7 @@ module Taza
 
     def close_browser_and_raise_if original_error # :nodoc:
       begin
-        @browser.close if @i_created_browser
+        @browser.close if (@i_created_browser && !@@donot_close_browser)
       ensure
         raise original_error if original_error
       end

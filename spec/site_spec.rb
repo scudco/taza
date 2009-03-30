@@ -240,7 +240,7 @@ describe Taza::Site do
     barzor.some_element.should eql(:some_element_value)
   end
 
-  it "should raise an error when accessing an element taht belongs to another module" do
+  it "should raise an error when accessing an element that belongs to another module" do
     f = Foo.new(:browser => stub_browser)
     barzor = nil
     f.baz(:another_module) do |baz|
@@ -249,4 +249,19 @@ describe Taza::Site do
     lambda{barzor.other_element}.should raise_error(NoMethodError)
   end
 
+  it "should have a way to keep the browser instance open" do
+    browser = stub_browser
+    browser.expects(:close).never
+    Taza::Browser.stubs(:create).returns(browser)
+    Taza::Site.donot_close_browser
+    Foo.new {}
+  end
+  
+  it "should have a way to keep the browser instance open if an error is raised" do
+    browser = stub_browser
+    browser.expects(:close).never
+    Taza::Browser.stubs(:create).returns(browser)
+    Taza::Site.donot_close_browser
+    lambda { Foo.new { |site| raise StandardError}}.should raise_error
+  end
 end
