@@ -3,6 +3,7 @@
 * Added feature to keep browser open after tests
 * Added access to multiple levels in Fixtures
 * Added feature to return a Hash in Fixtures 
+* lib/flows is no longer generated
 
 === 0.8.5
 
