@@ -93,4 +93,13 @@ describe Taza::Page do
     lambda { page.false_item }.should raise_error
     page.called_element_method.should_not be_true
   end
+
+  it "should not allow more than one element descriptor with the same element name" do
+    lambda{
+    class DuplicateElements < Taza::Page
+      element(:foo) { true }
+      element(:foo) { false }
+    end
+    }.should raise_error(Taza::ElementError)
+  end
 end

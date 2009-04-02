@@ -35,6 +35,8 @@ module Taza
       if !@module.nil?
         self.elements[@module] = Hash.new if self.elements[@module].nil?
         self.elements[@module] = self.elements[@module].merge({ name => block })
+      elsif !self.elements[name].nil?
+        raise ElementError,"Duplicate definations for Element - #{name} on Page - #{self.to_s}"
       else
         self.elements[name] = block
       end
@@ -115,4 +117,5 @@ module Taza
   end
 
   class FilterError < StandardError; end
+  class ElementError < StandardError; end
 end
