@@ -76,6 +76,13 @@ module Taza
       yield(block)
       @module = nil
     end
+    
+    def self.page_module_filter(method_name, page_module_name, *elements)
+      elements = [page_module_name] if elements.empty?
+      elements.each do |element|
+        self.filters[element] = self.filters[element] << method_name
+      end
+    end
 
     def initialize(page_module = nil)
       add_element_methods(page_module)
@@ -86,7 +93,7 @@ module Taza
       self.class.elements.each do |element_name,element_block|
         if (element_block.is_a?(Hash) && !page_module.nil? && page_module==element_name)
           element_block.each do |key,value|
-            filters = self.class.filters[element_name] + self.class.filters[:all]
+            filters = self.class.filters[element_name] + self.class.filters[:all] + self.class.filters[key]
             add_element_method(:filters => filters, :element_name => key, :element_block => value)
           end
         else
