@@ -136,5 +136,30 @@ describe "Taza Page Module" do
     lambda { page.sample_element }.should raise_error(Taza::FilterError)
     page.another_sample_element.should eql(:something)
   end
+  
+  class PageWithFiltersAndModulesAndElements < ::Taza::Page
+    page_module :foo_module do
+      element(:sample_element) {:something}
+    end
+    page_module_filter :foo_filter, :foo_module
+    def foo_filter
+      true
+    end
+    page_module :bar_module do
+      element(:sample_element) {:nothing}
+    end
+    page_module_filter :bar_filter, :bar_module
+    def bar_filter
+      false
+    end
+  end
+
+  it "should execute page module filters for identical element names appropriately" do
+    foo = PageWithFiltersAndModulesAndElements.new(:foo_module)
+    foo.sample_element.should eql(:something)
+    bar = PageWithFiltersAndModulesAndElements.new(:bar_module)
+    lambda { bar.sample_element }.should raise_error(Taza::FilterError)
+ end
+
 
 end
