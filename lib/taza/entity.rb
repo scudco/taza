@@ -42,7 +42,8 @@ module Taza
     end
 
     def to_hash
-      @hash
+      cloned_hash = @hash.clone
+      cloned_hash.key_strings_to_symbols!
     end
 
     private
