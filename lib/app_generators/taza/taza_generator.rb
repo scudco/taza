@@ -24,6 +24,8 @@ class TazaGenerator < RubiGen::Base
       m.template "spec_helper.rb.erb", File.join("spec","spec_helper.rb")
       m.dependency "install_rubigen_scripts", [destination_root, 'taza'],
         :shebang => options[:shebang], :collision => :force
+      m.template "console.erb", File.join("script","console")
+      m.template "console.cmd.erb", File.join("script","console.cmd")
     end
   end
 
@@ -33,6 +35,7 @@ class TazaGenerator < RubiGen::Base
     m.directory File.join('spec','isolation')
     m.directory File.join('spec','integration')
     m.directory File.join('spec','story')
+    m.directory 'script'
   end
   
   protected

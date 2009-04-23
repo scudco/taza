@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+irb = RUBY_PLATFORM =~ /(:?mswin|mingw)/ ? 'irb.bat' : 'irb'
+
+libs = ""
+Dir.glob(File.expand_path("#{File.dirname(__FILE__)}/../lib/sites/*.rb")).each do |file|
+  libs << " -r '#{file}'"
+end
+
+ENV['TAZA_ENV'] = ARGV.first || ENV['TAZA_ENV'] || 'isolation'
+exec "#{irb} #{libs} --simple-prompt"

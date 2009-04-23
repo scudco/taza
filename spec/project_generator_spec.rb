@@ -43,4 +43,14 @@ describe "Project Generator" do
     ENV['TAZA_ENV'].should eql('orange pie? is there such a thing?')
   end
 
+  it "should generate a console script" do
+    run_generator('taza', [APP_ROOT], generator_sources)
+    File.exists?(File.join(APP_ROOT,'script','console')).should be_true
+  end
+
+  it "should generate a windows console script" do
+    run_generator('taza', [APP_ROOT], generator_sources)
+    File.exists?(File.join(APP_ROOT,'script','console.cmd')).should be_true
+  end
+
 end
