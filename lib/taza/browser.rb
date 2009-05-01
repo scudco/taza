@@ -19,7 +19,7 @@ module Taza
     def self.create_watir(params)
       method = "watir_#{params[:browser]}"
       raise BrowserUnsupportedError unless self.respond_to?(method)
-      watir = self.send(method).new
+      watir = self.send(method,params)
       watir
     end
 
@@ -28,19 +28,23 @@ module Taza
       Selenium::SeleniumDriver.new(params[:server_ip],params[:server_port],'*' + params[:browser].to_s,params[:timeout])
     end
 
-    def self.watir_firefox
+    def self.watir_firefox(params)
       require 'firewatir'
-      FireWatir::Firefox
+      FireWatir::Firefox.new
     end
 
-    def self.watir_safari
+    def self.watir_safari(params)
       require 'safariwatir'
-      Watir::Safari
+      Watir::Safari.new
     end
 
-    def self.watir_ie
+    def self.watir_ie(params)
+      gem 'watir','1.5.6'
       require 'watir'
-      Watir::IE
+      if params[:attach]
+         browser = Watir::IE.find(:title, //)
+      end
+      browser || Watir::IE.new
     end
   end
   

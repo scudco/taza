@@ -1,6 +1,7 @@
 require 'spec/spec_helper'
 require 'taza/browser'
 require 'taza/settings'
+require 'taza/options'
 require 'selenium'
 require 'watir'
 
@@ -25,7 +26,7 @@ describe Taza::Browser do
     Selenium::SeleniumDriver.expects(:new).with(anything,anything,'*opera',anything)
     Taza::Browser.create(:browser => browser_type, :driver => :selenium)
   end
-
+  
   it "should raise selenium unsupported browser error" do
     Taza::Browser.create(:browser => :foo, :driver => :selenium)
   end
@@ -55,4 +56,31 @@ describe Taza::Browser do
     Taza::Browser.browser_class(:browser => :safari, :driver => :watir).should eql(Object) 
   end
   
+  it "should be able to attach to an open IE instance" do
+    require 'watir'
+    browser = Object.new
+    Watir::IE.stubs(:find).returns(browser)
+    Watir::IE.stubs(:new).returns(browser)
+    old_browser = Watir::IE.new
+    new_browser = Taza::Browser.create(:browser => :ie, :driver => :watir, :attach => true) 
+    new_browser.should eql(old_browser)
+  end
+  
+  it "should be able to open a new IE instance if there is no instance to attach to" do
+    require 'watir'
+    browser = Object.new
+    Watir::IE.stubs(:find).returns()
+    Watir::IE.stubs(:new).returns(browser)
+    new_browser = Taza::Browser.create(:browser => :ie, :driver => :watir) 
+    browser.nil?.should be_false 
+  end
+  it "should be able to open a new IE instance if attach not specified" do
+    require 'watir'
+    foo = Object.new
+    bar = Object.new
+    Watir::IE.stubs(:find).returns(foo)
+    Watir::IE.stubs(:new).returns(bar)
+    new_browser = Taza::Browser.create(:browser => :ie, :driver => :watir) 
+    new_browser.should_not eql(foo)
+  end
 end
