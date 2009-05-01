@@ -1,26 +1,10 @@
 require 'activesupport'
+require 'taza/options'
 
 module Taza
   class Settings
-    # The config settings for a site.yml file.  ENV variables will override the settings:
-    #  Can override the browser in config via ENV['BROWSER']
-    #  Can override the driver in config via ENV['DRIVER']
-    #  Can override the timeout in config via ENV['TIMEOUT']
-    #  Can override the server_ip in config via ENV['SERVER_IP']
-    #  Can override the server_port in config via ENV['SERVER_PORT']
-    #
-    # Example:
     #   Taza::Settings.Config('google')
     def self.config(site_name)
-    #  env_settings = {}
-    #  env_settings[:browser] = ENV['BROWSER'].to_sym if ENV['BROWSER']
-    #  env_settings[:driver]  = ENV['DRIVER'].to_sym if ENV['DRIVER']
-    #  env_settings[:attach]  = ENV['ATTACH'].to_sym if ENV['ATTACH']
-    #  env_settings[:timeout] = ENV['TIMEOUT'] if ENV['TIMEOUT']
-    #  env_settings[:server_ip] = ENV['SERVER_IP'] if ENV['SERVER_IP']
-    #  env_settings[:server_port] = ENV['SERVER_PORT'] if ENV['SERVER_PORT']
-    #  env_settings = {:browser=>:firefox,:driver=>:selenium,:attach=>:false}.merge(config_file.merge(env_settings))
-    #  site_file(site_name).merge(env_settings)
       site_file(site_name).merge(Options.new.execute)
     end
 
