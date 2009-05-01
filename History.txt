@@ -1,3 +1,9 @@
+=== 0.8.7
+
+* Added script/console Utility
+* Integration with user_choices
+* Attach to open IE instance
+
 === 0.8.6
 
 * Added feature to keep browser open after tests
