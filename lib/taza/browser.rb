@@ -39,7 +39,6 @@ module Taza
     end
 
     def self.watir_ie(params)
-      gem 'watir','1.5.6'
       require 'watir'
       if params[:attach]
          browser = Watir::IE.find(:title, //)
