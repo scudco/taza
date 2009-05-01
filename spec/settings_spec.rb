@@ -1,6 +1,7 @@
 require 'spec/spec_helper'
 require 'rubygems'
 require 'taza/settings'
+require 'taza/options'
 require 'taza/site'
 
 describe Taza::Settings do
@@ -13,24 +14,26 @@ describe Taza::Settings do
     ENV['TAZA_ENV'] = 'isolation'
     ENV['BROWSER'] = nil
     ENV['DRIVER'] = nil
+    ENV['ATTACH'] = nil
   end
 
   it "should use environment variable for browser settings" do
     Taza::Settings.stubs(:path).returns("spec/sandbox")
     ENV['BROWSER'] = 'foo'
-    Taza::Settings.config(@site_name)[:browser].should eql(:foo)
+    Taza::Settings.config(@site_name)[:browser].should eql('foo')
   end
 
   it "should provide default values if no config file or environment settings provided" do
     Taza::Settings.stubs(:path).returns("spec/sandbox")
-    Taza::Settings.config(@site_name)[:driver].should eql(:selenium)
-    Taza::Settings.config(@site_name)[:browser].should eql(:firefox)
+    Taza::Settings.config(@site_name)[:driver].should eql('selenium')
+    Taza::Settings.config(@site_name)[:browser].should eql('firefox')
+    Taza::Settings.config(@site_name)[:attach].should eql(false)
   end
 
   it "should use environment variable for driver settings" do
     Taza::Settings.stubs(:path).returns("spec/sandbox")
     ENV['DRIVER'] = 'bar'
-    Taza::Settings.config(@site_name)[:driver].should eql(:bar)
+    Taza::Settings.config(@site_name)[:driver].should eql('bar')
   end
 
   it "should be able to load the site yml" do
@@ -45,16 +48,16 @@ describe Taza::Settings do
   end
 
   it "should use the config file's variable for browser settings if no environment variable is set" do
-    Taza::Settings.expects(:config_file).returns({:browser => :fu})
-    Taza::Settings.stubs(:path).returns("spec/sandbox")
-    Taza::Settings.config(@site_name)[:browser].should eql(:fu)
+    UserChoices::YamlConfigFileSource.any_instance.stubs(:format_specific_reading).returns({'browser' => 'fu'})
+    Taza::Settings.stubs(:path).returns("./spec/sandbox")
+    Taza::Settings.config(@site_name)[:browser].should eql('fu')
   end
 
   it "should use the ENV variables if specfied instead of config files" do
     ENV['BROWSER'] = 'opera'
-    Taza::Settings.expects(:config_file).returns({:browser => :fu})
+    UserChoices::YamlConfigFileSource.any_instance.stubs(:format_specific_reading).returns({'browser' => 'fu'})
     Taza::Settings.stubs(:path).returns("spec/sandbox")
-    Taza::Settings.config(@site_name)[:browser].should eql(:opera)
+    Taza::Settings.config(@site_name)[:browser].should eql('opera')
   end
 
   it "should use the correct config file to set defaults" do
@@ -72,9 +75,9 @@ describe Taza::Settings do
   end
 
   it "should use the config file's variable for driver settings if no environment variable is set" do
+    UserChoices::YamlConfigFileSource.any_instance.stubs(:format_specific_reading).returns({'driver' => 'fun'})
     Taza::Settings.stubs(:path).returns("spec/sandbox")
-    Taza::Settings.stubs(:config_file).returns({:driver => :fun})
-    Taza::Settings.config(@site_name)[:driver].should eql(:fun)
+    Taza::Settings.config(@site_name)[:driver].should eql('fun')
   end
 
   class SiteName < Taza::Site
