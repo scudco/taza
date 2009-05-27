@@ -50,7 +50,13 @@ end
 
 Spec::Rake::SpecTask.new do |t|
   t.libs << File.join(File.dirname(__FILE__), 'lib')
-  t.spec_files = FileList['spec/**/*_spec.rb']
+  files = FileList['spec/**/*_spec.rb']
+
+  unless RUBY_PLATFORM =~ /mswin/
+    files.exclude('spec/platform/windows/**/*_spec.rb')
+  end
+
+  t.spec_files = files
 end
 
 desc "Run all examples with RCov"

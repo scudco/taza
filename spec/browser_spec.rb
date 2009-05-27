@@ -55,32 +55,5 @@ describe Taza::Browser do
     Taza::Browser.expects(:watir_safari).returns(Object)
     Taza::Browser.browser_class(:browser => :safari, :driver => :watir).should eql(Object) 
   end
-  
-  it "should be able to attach to an open IE instance" do
-    require 'watir'
-    browser = Object.new
-    Watir::IE.stubs(:find).returns(browser)
-    Watir::IE.stubs(:new).returns(browser)
-    old_browser = Watir::IE.new
-    new_browser = Taza::Browser.create(:browser => :ie, :driver => :watir, :attach => true) 
-    new_browser.should eql(old_browser)
-  end
-  
-  it "should be able to open a new IE instance if there is no instance to attach to" do
-    require 'watir'
-    browser = Object.new
-    Watir::IE.stubs(:find).returns()
-    Watir::IE.stubs(:new).returns(browser)
-    new_browser = Taza::Browser.create(:browser => :ie, :driver => :watir) 
-    browser.nil?.should be_false 
-  end
-  it "should be able to open a new IE instance if attach not specified" do
-    require 'watir'
-    foo = Object.new
-    bar = Object.new
-    Watir::IE.stubs(:find).returns(foo)
-    Watir::IE.stubs(:new).returns(bar)
-    new_browser = Taza::Browser.create(:browser => :ie, :driver => :watir) 
-    new_browser.should_not eql(foo)
-  end
+
 end
