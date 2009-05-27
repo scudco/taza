@@ -39,7 +39,7 @@ Here's an example for starting a project around the Google sites
   $ ./script/generate site google
   $ ./script/generate page home_page google
   $ ./script/generate flow search google
-  $ rake spec:functional:google
+  $ rake spec:isolation:google
 
 That will generate an RSpec HTML report at artifacts/functional/google/index.html
 
