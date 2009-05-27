@@ -48,20 +48,22 @@ task :rdoc do
   system "ruby ./vendor/gems/gems/allison-2.0.3/bin/allison --line-numbers --inline-source --main README --title 'Taza RDoc' README History.txt lib "
 end
 
-Spec::Rake::SpecTask.new do |t|
-  t.libs << File.join(File.dirname(__FILE__), 'lib')
+def platform_spec_files
   files = FileList['spec/**/*_spec.rb']
-
   unless RUBY_PLATFORM =~ /mswin/
     files.exclude('spec/platform/windows/**/*_spec.rb')
   end
+  files
+end
 
-  t.spec_files = files
+Spec::Rake::SpecTask.new do |t|
+  t.libs << File.join(File.dirname(__FILE__), 'lib')
+  t.spec_files = platform_spec_files
 end
 
 desc "Run all examples with RCov"
 Spec::Rake::SpecTask.new(:rcov) do |t|
-  t.spec_files = FileList['spec/**/*_spec.rb']
+  t.spec_files = platform_spec_files
   t.libs << File.join(File.dirname(__FILE__), 'lib')
   t.rcov = true
   t.rcov_dir = RCOV_DIR
