@@ -14,8 +14,11 @@ class String
   # dash and spaces to underscore
   # and lowercases
   def variablize
-    self.underscore
-	self.gsub(/\s+/,'').
-	tr('-','_').downcase
+    self.squeeze!(' ')
+	self.gsub!(/\s+/,'_')
+	self.gsub!('-', '_')
+	self.squeeze!('_')
+	self.downcase!
+	self
   end
 end
