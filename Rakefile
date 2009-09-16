@@ -34,6 +34,7 @@ begin
     s.add_dependency(%q<mocha>, [">= 0.9.3"])
     s.add_dependency(%q<rspec>, [">= 1.1.12"])
     s.add_dependency(%q<rubigen>, [">= 1.4.0"])
+    s.add_dependency(%q<user-choices>, [">= 1.1.6"])
 
     s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README"]
     s.has_rdoc = true
