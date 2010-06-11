@@ -24,7 +24,7 @@ class TazaGenerator < RubiGen::Base
       m.template "spec_helper.rb.erb", File.join("spec","spec_helper.rb")
       m.dependency "install_rubigen_scripts", [destination_root, 'taza'],
         :shebang => options[:shebang], :collision => :force
-      m.template "console.erb", File.join("script","console")
+      m.template "console.erb", File.join("script","console"), {:chmod => 0755}
       m.template "console.cmd.erb", File.join("script","console.cmd")
     end
   end
