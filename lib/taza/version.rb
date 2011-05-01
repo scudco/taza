@@ -1,0 +1,3 @@
+module Taza
+  VERSION = "0.0.1"
+end
