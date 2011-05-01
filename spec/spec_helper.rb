@@ -1,10 +1,8 @@
-require 'rubygems'
-require 'spec'
+require 'bundler/setup'
 require 'mocha'
-require 'config/vendorized_gems'
-lib_path = File.expand_path("#{File.dirname(__FILE__)}/../lib")
-$LOAD_PATH.unshift lib_path unless $LOAD_PATH.include?(lib_path)
-
+require 'rubigen'
+require 'rubigen/helpers/generator_test_helper'
+require 'taza'
 
 Spec::Runner.configure do |config|
   config.mock_with :mocha
@@ -13,10 +11,6 @@ end
 def null_device  
   File.exists?('/dev/null') ? '/dev/null' : 'NUL'
 end
-
-#### Rubigen helpers
-require 'rubigen'
-require 'rubigen/helpers/generator_test_helper'
 
 # Must set before requiring generator libs.
 TMP_ROOT = File.join(File.dirname(__FILE__),"sandbox","generated")

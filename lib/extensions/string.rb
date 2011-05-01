@@ -1,5 +1,3 @@
-require 'rubygems'
-require 'activesupport'
 
 class String
   # pluralizes a string and turns it into a symbol
