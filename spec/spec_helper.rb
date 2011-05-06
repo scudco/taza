@@ -4,7 +4,7 @@ require 'rubigen'
 require 'rubigen/helpers/generator_test_helper'
 require 'taza'
 require 'Selenium'
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
   config.mock_with :mocha
 end
 

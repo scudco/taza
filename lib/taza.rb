@@ -1,4 +1,5 @@
 require 'active_support/all'
+require 'rspec'
 require 'taza/page'
 require 'taza/site'
 require 'taza/browser'
