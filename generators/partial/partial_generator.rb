@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rubigen'
-require 'activesupport'
+require 'active_support'
 
 class PartialGenerator < RubiGen::Base
   default_options :author => nil
