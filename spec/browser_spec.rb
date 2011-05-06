@@ -1,9 +1,4 @@
 require 'spec/spec_helper'
-require 'taza/browser'
-require 'taza/settings'
-require 'taza/options'
-require 'selenium'
-require 'watir'
 
 describe Taza::Browser do
 
