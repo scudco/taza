@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>manifest (TazaGenerator)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/app_generators/taza/taza_generator.rb, line 19</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">manifest</span>
+    <span class="ruby-identifier">record</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>    
+      <span class="ruby-identifier">create_directories</span>(<span class="ruby-identifier">m</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">&quot;rakefile.rb.erb&quot;</span>, <span class="ruby-value str">&quot;rakefile&quot;</span>
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">&quot;config.yml.erb&quot;</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;config&quot;</span>,<span class="ruby-value str">&quot;config.yml&quot;</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">&quot;spec_helper.rb.erb&quot;</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;spec&quot;</span>,<span class="ruby-value str">&quot;spec_helper.rb&quot;</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">dependency</span> <span class="ruby-value str">&quot;install_rubigen_scripts&quot;</span>, [<span class="ruby-identifier">destination_root</span>, <span class="ruby-value str">'taza'</span>],
+        <span class="ruby-identifier">:shebang</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:shebang</span>], <span class="ruby-identifier">:collision</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:force</span>
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">&quot;console.erb&quot;</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;script&quot;</span>,<span class="ruby-value str">&quot;console&quot;</span>), {<span class="ruby-identifier">:chmod</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0755</span>}
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">&quot;console.cmd.erb&quot;</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;script&quot;</span>,<span class="ruby-value str">&quot;console.cmd&quot;</span>)
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

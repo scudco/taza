@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>create_directories (TazaGenerator)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/app_generators/taza/taza_generator.rb, line 32</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_directories</span>(<span class="ruby-identifier">m</span>)
+    <span class="ruby-constant">BASEDIRS</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-identifier">path</span> }
+    <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'lib'</span>,<span class="ruby-value str">'sites'</span>)
+    <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec'</span>,<span class="ruby-value str">'isolation'</span>)
+    <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec'</span>,<span class="ruby-value str">'integration'</span>)
+    <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec'</span>,<span class="ruby-value str">'story'</span>)
+    <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-value str">'script'</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

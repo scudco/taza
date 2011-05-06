@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>add_options! (TazaGenerator)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/app_generators/taza/taza_generator.rb, line 49</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_options!</span>(<span class="ruby-identifier">opts</span>)
+      <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">''</span>
+      <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">'Options:'</span>
+      <span class="ruby-comment cmt"># For each option below, place the default</span>
+      <span class="ruby-comment cmt"># at the top of the file next to &quot;default_options&quot;</span>
+      <span class="ruby-comment cmt"># opts.on(&quot;-a&quot;, &quot;--author=\&quot;Your Name\&quot;&quot;, String,</span>
+      <span class="ruby-comment cmt">#         &quot;Some comment about this option&quot;,</span>
+      <span class="ruby-comment cmt">#         &quot;Default: none&quot;) { |options[:author]| }</span>
+      <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">&quot;-v&quot;</span>, <span class="ruby-value str">&quot;--version&quot;</span>, <span class="ruby-node">&quot;Show the #{File.basename($0)} version number and quit.&quot;</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

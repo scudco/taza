@@ -46,8 +46,6 @@ That will generate an RSpec HTML report at artifacts/functional/google/index.htm
 
 == REQUIREMENTS:
 
-* taglob 
-
 == INSTALL:
 
 * sudo gem install taza 

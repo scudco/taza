@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>add_sources (Taza::Options)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/taza/options.rb, line 6</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_sources</span>(<span class="ruby-identifier">builder</span>)
+<span class="ruby-comment cmt">#     builder.add_source(CommandLineSource, :usage, &quot;Usage: ruby #{$0} [options] file1 [file2]&quot;)</span>
+      <span class="ruby-identifier">builder</span>.<span class="ruby-identifier">add_source</span>(<span class="ruby-constant">EnvironmentSource</span>, <span class="ruby-identifier">:mapping</span>, {<span class="ruby-identifier">:browser</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'BROWSER'</span>, <span class="ruby-identifier">:driver</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'DRIVER'</span>, <span class="ruby-identifier">:attach</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'ATTACH'</span>, <span class="ruby-identifier">:timeout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'TIMEOUT'</span>, <span class="ruby-identifier">:server_ip</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'SERVER_IP'</span>, <span class="ruby-identifier">:server_port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'SERVER_PORT'</span>})
+      <span class="ruby-identifier">builder</span>.<span class="ruby-identifier">add_source</span>(<span class="ruby-constant">YamlConfigFileSource</span>, <span class="ruby-identifier">:from_complete_path</span>, <span class="ruby-constant">Settings</span>.<span class="ruby-identifier">config_file_path</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

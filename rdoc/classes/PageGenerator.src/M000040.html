@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (PageGenerator)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File generators/page/page_generator.rb, line 9</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">runtime_args</span>, <span class="ruby-identifier">runtime_options</span> = {})
+    <span class="ruby-keyword kw">super</span>
+    <span class="ruby-identifier">usage</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-value">2</span>
+    <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">shift</span>
+    <span class="ruby-ivar">@site_name</span>=<span class="ruby-identifier">args</span>.<span class="ruby-identifier">shift</span>
+    <span class="ruby-identifier">check_if_site_exists</span>
+    <span class="ruby-identifier">extract_options</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

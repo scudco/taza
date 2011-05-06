@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>execute_block_and_close_browser (Taza::Site)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/taza/site.rb, line 67</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute_block_and_close_browser</span>(<span class="ruby-identifier">browser</span>)
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-keyword kw">yield</span> <span class="ruby-keyword kw">self</span>
+      <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">site_block_exception</span>
+      <span class="ruby-keyword kw">ensure</span>
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-ivar">@@before_browser_closes</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">browser</span>)
+        <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">before_browser_closes_block_exception</span>
+          <span class="ruby-value str">&quot;&quot;</span> <span class="ruby-comment cmt"># so basically rcov has a bug where it would insist this block is uncovered when empty</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">close_browser_and_raise_if</span> <span class="ruby-identifier">site_block_exception</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">before_browser_closes_block_exception</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (Taza::Site)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/taza/site.rb, line 51</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">params</span>={},<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-ivar">@module_name</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">to_s</span>
+      <span class="ruby-ivar">@class_name</span>  = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;::&quot;</span>).<span class="ruby-identifier">last</span>
+      <span class="ruby-identifier">define_site_pages</span>
+      <span class="ruby-identifier">define_flows</span>
+      <span class="ruby-identifier">config</span> = <span class="ruby-constant">Settings</span>.<span class="ruby-identifier">config</span>(<span class="ruby-ivar">@class_name</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:browser</span>]
+        <span class="ruby-ivar">@browser</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:browser</span>]
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-ivar">@browser</span> = <span class="ruby-constant">Browser</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">config</span>)
+        <span class="ruby-ivar">@i_created_browser</span> = <span class="ruby-keyword kw">true</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">goto</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:url</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">config</span>[<span class="ruby-identifier">:url</span>])
+      <span class="ruby-identifier">execute_block_and_close_browser</span>(<span class="ruby-identifier">browser</span>,<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
