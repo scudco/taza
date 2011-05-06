@@ -3,7 +3,8 @@ require 'spec/spec_helper'
 
 describe "Taza::Fixtures" do
 
-  Taza::Fixture.any_instance.stubs(:base_path).returns('./spec/sandbox/fixtures/')
+  Taza::Fixture.stubs(:base_path).returns('./spec/sandbox/fixtures/')
+  Taza.load_fixtures
   include Taza::Fixtures
   
   it "should be able to look up a fixture entity off fixture_methods module" do
