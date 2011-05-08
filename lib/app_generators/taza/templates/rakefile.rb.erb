@@ -3,8 +3,9 @@ require 'rubygems'
 require 'taza/tasks'
 
 Taza::Rake::Tasks.new do |t|
-  file_hole = "artifacts/#{Time.now.to_i}"
-  t.spec_opts = ["--format html:#{file_hole}/index.html",
-                  "--format p",
-                  "--format failing_examples:#{file_hole}/failing_examples.txt"]
+
+    file_hole = FileUtils.mkdir_p "artifacts/#{Time.now.to_i}"
+    t.spec_opts = ["--format html --out #{file_hole}/index.html",
+                   "--format p" ,
+                  "--format failing_examples --out #{file_hole}/failing_examples.txt"]
 end
