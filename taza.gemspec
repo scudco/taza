@@ -13,7 +13,6 @@ Gem::Specification.new do |s|
   s.description = ["test"]
 
   s.rubyforge_project = "taza"
-  s.add_runtime_dependency(%q<taglob>, ["~> 1.1.1"])
   s.add_runtime_dependency(%q<rake>, ["~> 0.8.3"])
   s.add_runtime_dependency(%q<mocha>, ["~> 0.9.3"])
   s.add_runtime_dependency(%q<rspec>, ["~> 2.5"])

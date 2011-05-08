@@ -1,7 +1,6 @@
 require 'spec/spec_helper'
 require 'rubygems'
 require 'rake'
-require 'taglob'
 
 describe "Taza Tasks" do
 
@@ -12,7 +11,6 @@ describe "Taza Tasks" do
   end
 
   before :each do
-    Dir.stubs(:taglob).returns([])
     Dir.expects(:glob).with('./spec/*/').returns(['./spec/functional/','./spec/mocks/'])
     Dir.expects(:glob).with('./spec/functional/*/').returns(['./spec/functional/foo/'])
     Dir.expects(:glob).with('./spec/functional/*_spec.rb').returns([])
@@ -21,10 +19,12 @@ describe "Taza Tasks" do
     Dir.expects(:glob).with('./spec/functional/foo/page/*/').returns([])
     Dir.expects(:glob).with('./spec/functional/foo/page/*_spec.rb').returns(['./spec/functional/foo/page/bar_spec.rb'])
 
-    Dir.expects(:glob).with('./spec/functional/**/*_spec.rb').returns(['./spec/functional/foo/page/bar_spec.rb'])
-    Dir.expects(:glob).with('./spec/functional/foo/**/*_spec.rb').returns(['./spec/functional/foo/page/bar_spec.rb'])
-    Dir.expects(:glob).with('./spec/functional/foo/page/**/*_spec.rb').returns(['./spec/functional/foo/page/bar_spec.rb'])
+    Dir.expects(:glob).with('./spec/functional/**/*_spec.rb').returns(['./spec/functional/foo/page/bar_spec.rb']).twice
+    Dir.expects(:glob).with('./spec/functional/foo/**/*_spec.rb').returns(['./spec/functional/foo/page/bar_spec.rb']).twice
+    Dir.expects(:glob).with('./spec/functional/foo/page/**/*_spec.rb').returns(['./spec/functional/foo/page/bar_spec.rb']).twice
     Dir.expects(:glob).with('./spec/mocks/**/*_spec.rb').returns([])
+    Dir.expects(:glob).with('./spec/functional/foo/page/bar_spec.rb').returns(['./spec/functional/foo/page/bar_spec.rb'])
+
     load @file_name
     Taza::Rake::Tasks.new
   end
