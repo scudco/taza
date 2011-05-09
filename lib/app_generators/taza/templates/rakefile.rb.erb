@@ -3,8 +3,6 @@ require 'rubygems'
 require 'taza/tasks'
 
 Taza::Rake::Tasks.new do |t|
-
-# added the require path to the custom formatter
   file_hole = FileUtils.mkdir_p "artifacts/#{Time.now.to_i}"
   t.spec_opts = ["--require ../lib/formatters/failing_examples_formatter ",
                 "--format html --out #{file_hole}/index.html",
