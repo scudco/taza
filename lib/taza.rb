@@ -11,6 +11,7 @@ require 'extensions/object'
 require 'extensions/string'
 require 'extensions/hash'
 require 'extensions/array'
+require 'formatters/failing_examples_formatter'
 
 module ForwardInitialization
   module ClassMethods
