@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = "taza"
   s.add_runtime_dependency(%q<rake>, ["~> 0.8.3"])
   s.add_runtime_dependency(%q<mocha>, ["~> 0.9.3"])
-  s.add_runtime_dependency(%q<rspec>, ["~> 2.5"])
+  s.add_runtime_dependency(%q<rspec>, ["~> 2.6"])
   s.add_runtime_dependency(%q<rubigen>, ["~> 1.5.6"])
   s.add_runtime_dependency(%q<user-choices>, ["~> 1.1.6.1"])
   s.add_runtime_dependency(%q<Selenium>, ["~> 1.1.14"])
