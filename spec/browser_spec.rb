@@ -26,9 +26,9 @@ describe Taza::Browser do
     Taza::Browser.create(:browser => :foo, :driver => :selenium)
   end
 
-  it "should be able to create a watir webdriver instance" do
+  it "should use params browser type when creating an watir webdriver instance" do
+    Watir::Browser.expects(:new).with(:firefox)
     browser = Taza::Browser.create(:browser => :firefox, :driver => :watir_webdriver)
-    browser.should be_a_kind_of Watir::Browser
   end
 
   it "should be able to create a selenium instance" do
