@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<Selenium>, ["~> 1.1.14"])
   s.add_runtime_dependency(%q<firewatir>, ["~> 1.2.1"])
   s.add_runtime_dependency(%q<watir-webdriver>, ["~> 0.3.1"])
-  s.add_development_dependency(%q<ruby-debug>)
 
 
   s.files = `git ls-files`.split("\n")
