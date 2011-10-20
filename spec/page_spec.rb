@@ -1,8 +1,8 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 require 'taza/page'
 
 describe Taza::Page do
-  
+
   class ElementAndFilterContextExample < Taza::Page
     element(:sample_element) {browser}
     filter:sample_filter, :sample_element
@@ -29,17 +29,17 @@ describe Taza::Page do
     Taza::Page.element(:boo){|baz| baz}
     Taza::Page.new.boo("rofl").should == "rofl"
   end
-  
+
   it "should execute elements and filters in the context of the page instance" do
     page = ElementAndFilterContextExample.new
     page.browser = :something
     page.sample_element.should eql(:something)
   end
-  
+
   it "should add a filter to the classes filters" do
-    ElementAndFilterContextExample.filters.size.should eql(1) 
+    ElementAndFilterContextExample.filters.size.should eql(1)
   end
-  
+
   it "should store the block given to the element method in a method with the name of the parameter" do
     Taza::Page.element(:foo) do
       "bar"
@@ -56,12 +56,12 @@ describe Taza::Page do
       false
     end
   end
-    
+
   it "should filter all elements if element argument is not provided" do
     lambda { FilterAllElements.new.apple }.should raise_error(Taza::FilterError)
     lambda { FilterAllElements.new.foo }.should raise_error(Taza::FilterError)
   end
-  
+
   it "should have empty elements on a new class" do
     foo = Class::new(superclass=Taza::Page)
     foo.elements.should_not be_nil
@@ -87,7 +87,7 @@ describe Taza::Page do
   it "should raise a error if an elements is called and its filter returns false" do
     lambda { FilterAnElement.new.false_item }.should raise_error(Taza::FilterError)
   end
-  
+
   it "should not call element block if filters fail" do
     page = FilterAnElement.new
     lambda { page.false_item }.should raise_error

@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 require 'extensions/array'
 
 describe 'Array Extensions' do
@@ -7,7 +7,7 @@ describe 'Array Extensions' do
   end
   it "should know if elements are not equivalent to a larger set including those elements" do
     [1,2,3].should_not be_equivalent([1,2,3,4])
-  end  
+  end
   it "should know it is equivalent if the same order" do
     [1,2,3].should be_equivalent([1,2,3])
   end

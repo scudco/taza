@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 require 'rubygems'
 require 'rake'
 require 'fileutils'
@@ -35,7 +35,7 @@ describe "Project Generator" do
     load @spec_helper
     ENV['TAZA_ENV'].should eql("isolation")
   end
-  
+
   it "spec helper should not override the TAZA_ENV variable if was provided" do
     ENV['TAZA_ENV'] = 'orange pie? is there such a thing?'
     run_generator('taza', [APP_ROOT], generator_sources)

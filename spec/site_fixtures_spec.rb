@@ -1,5 +1,4 @@
-require 'spec/spec_helper'
-require 'ruby-debug'
+require 'spec_helper'
 describe "Site Specific Fixtures" do
   Taza::Fixture.stubs(:base_path).returns(File.join('.','spec','sandbox','fixtures',''))
   Taza.load_fixtures

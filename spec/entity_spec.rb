@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 require 'taza/entity'
 
 describe Taza::Entity do
@@ -21,7 +21,7 @@ describe Taza::Entity do
     entity = Taza::Entity.new({:apple => 'pie' },nil)
     entity.to_hash[:apple].should eql('pie')
   end
-  
+
   it "should be able to do string-to-symbol conversion for hash keys using to_hash" do
     entity = Taza::Entity.new({'apple' => 'pie' },nil)
     entity.to_hash[:apple].should eql('pie')
