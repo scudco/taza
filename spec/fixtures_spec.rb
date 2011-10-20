@@ -42,7 +42,7 @@ describe "Taza::Fixtures" do
   end
 
   it "should be able to access multiple levels inside fixtures" do
-    examples(:forth_example).something.user('shatner').name.should eql('William Shatner')
+    examples(:forth_example).something.user.name.should eql('William Shatner')
   end
 
 end
