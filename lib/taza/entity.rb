@@ -7,7 +7,7 @@ module Taza
       @fixture = fixture
       define_methods_for_hash_keys
     end
-    
+
     #This method converts hash keys into methods onto the entity
     def define_methods_for_hash_keys
       @hash.keys.each do |key|
@@ -30,7 +30,7 @@ module Taza
       end
     end
     alias :[] :get_value_for_entry
-    
+
     def create_entity_if_value_is_hash(key)
       if (@fixture.nil? && @hash[key].is_a?(Hash))
           Entity.new(@hash[key], nil)
