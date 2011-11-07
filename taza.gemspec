@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
   s.name = "taza"
   s.version = Taza::VERSION
   s.platform = Gem::Platform::RUBY
-  s.authors = ["test"]
-  s.email = ["test"]
-  s.homepage = ""
-  s.summary = "test"
-  s.description = ["test"]
+  s.authors = ["Pedro Nascimento", "Oscar Rieken"]
+  s.email = ["pnascimento@gmail.com", "bisbot@gmail.com"]
+  s.homepage = "http://github.com/hammernight/taza"
+  s.summary = "Taza is a page object framework."
+  s.description = ["Taza is a page object framework."]
 
   s.rubyforge_project = "taza"
   s.add_runtime_dependency(%q<rake>, ["~> 0.8.3"])
