@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 require 'rubygems'
 require 'taza/site'
 require 'taza/settings'
@@ -205,12 +205,12 @@ describe Taza::Site do
     Foo.new() {}
   end
 
-    
+
   module Zoro
     class Zoro < ::Taza::Site
     end
   end
-    
+
   it "should pass in the class name to settings config" do
     browser = stub()
     browser.stubs(:goto)
@@ -218,12 +218,12 @@ describe Taza::Site do
     Taza::Settings.expects(:config).with('Zoro').returns({})
     Zoro::Zoro.new
   end
-  
+
   it "should load settings based on the sites class name" do
     Taza::Settings.expects(:site_file).with('Zoro').returns({})
     Zoro::Zoro.settings
   end
-  
+
   def stub_browser
     browser = stub()
     browser.stubs(:close)
@@ -257,7 +257,7 @@ describe Taza::Site do
     Taza::Site.donot_close_browser
     Foo.new {}
   end
-  
+
   it "should have a way to keep the browser instance open if an error is raised" do
     browser = stub_browser
     browser.expects(:close).never

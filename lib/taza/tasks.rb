@@ -1,11 +1,6 @@
 require 'rubygems'
 require 'rake'
-require 'taglob'
-require 'spec/rake/spectask'
-
-def tags
-  ENV['TAGS']
-end
+require 'rspec/core/rake_task'
 
 module Taza
   module Rake
@@ -18,9 +13,9 @@ module Taza
       end
 
       def define_spec_task(name,glob_path)
-        Spec::Rake::SpecTask.new name do |t|
-          t.spec_files = Dir.taglob(glob_path,tags)
-          t.spec_opts << spec_opts
+        RSpec::Core::RakeTask.new name do |t|
+          t.pattern = Dir.glob(glob_path)
+          t.rspec_opts = spec_opts
         end
       end
 

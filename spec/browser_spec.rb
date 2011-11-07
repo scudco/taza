@@ -1,9 +1,4 @@
-require 'spec/spec_helper'
-require 'taza/browser'
-require 'taza/settings'
-require 'taza/options'
-require 'selenium'
-require 'watir'
+require 'spec_helper'
 
 describe Taza::Browser do
 
@@ -26,9 +21,14 @@ describe Taza::Browser do
     Selenium::SeleniumDriver.expects(:new).with(anything,anything,'*opera',anything)
     Taza::Browser.create(:browser => browser_type, :driver => :selenium)
   end
-  
+
   it "should raise selenium unsupported browser error" do
     Taza::Browser.create(:browser => :foo, :driver => :selenium)
+  end
+
+  it "should use params browser type when creating an watir webdriver instance" do
+    Watir::Browser.expects(:new).with(:firefox)
+    browser = Taza::Browser.create(:browser => :firefox, :driver => :watir_webdriver)
   end
 
   it "should be able to create a selenium instance" do
@@ -53,7 +53,7 @@ describe Taza::Browser do
 
   it "should be able to give you the class of browser" do
     Taza::Browser.expects(:watir_safari).returns(Object)
-    Taza::Browser.browser_class(:browser => :safari, :driver => :watir).should eql(Object) 
+    Taza::Browser.browser_class(:browser => :safari, :driver => :watir).should eql(Object)
   end
 
 end

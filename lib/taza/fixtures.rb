@@ -1,11 +1,12 @@
 require 'taza/fixture'
 
 module Taza
-  dirs = Dir.glob(File.join(Fixture.base_path,'*/'))
-  dirs.unshift Fixture.base_path
-  dirs.each do |dir|
-    mod = dir.sub(Fixture.base_path,File.join(File.basename(Fixture.base_path),'')).camelize.sub(/::$/,'')
-    self.class_eval <<-EOS
+  def self.load_fixtures
+    dirs = Dir.glob(File.join(Fixture.base_path,'*/'))
+    dirs.unshift Fixture.base_path
+    dirs.each do |dir|
+      mod = dir.sub(Fixture.base_path,File.join(File.basename(Fixture.base_path),'')).camelize.sub(/::$/,'')
+      self.class_eval <<-EOS
       module #{mod}
         def self.included(other_module) 
           fixture = Fixture.new
@@ -20,5 +21,8 @@ module Taza
         end
       end
       EOS
+    end
   end
+
+  self.load_fixtures
 end

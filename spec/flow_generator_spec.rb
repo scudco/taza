@@ -1,7 +1,4 @@
-require 'spec/spec_helper'
-require 'rubygems'
-require 'fileutils'
-require 'taza/site'
+require 'spec_helper'
 
 class Taza::Site
   def flows

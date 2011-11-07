@@ -1,22 +1,17 @@
-require 'rubygems'
-require 'spec'
+require 'bundler/setup'
 require 'mocha'
-require 'config/vendorized_gems'
-lib_path = File.expand_path("#{File.dirname(__FILE__)}/../lib")
-$LOAD_PATH.unshift lib_path unless $LOAD_PATH.include?(lib_path)
-
-
-Spec::Runner.configure do |config|
+require 'rubigen'
+require 'rubigen/helpers/generator_test_helper'
+require 'taza'
+require 'Selenium'
+require 'watir-webdriver'
+RSpec.configure do |config|
   config.mock_with :mocha
 end
 
-def null_device  
+def null_device
   File.exists?('/dev/null') ? '/dev/null' : 'NUL'
 end
-
-#### Rubigen helpers
-require 'rubigen'
-require 'rubigen/helpers/generator_test_helper'
 
 # Must set before requiring generator libs.
 TMP_ROOT = File.join(File.dirname(__FILE__),"sandbox","generated")
@@ -40,7 +35,7 @@ module Helpers
       site_name.camelize.constantize
     end
   end
-  
+
   module Taza
     def stub_settings
       ::Taza::Settings.stubs(:config).returns({})

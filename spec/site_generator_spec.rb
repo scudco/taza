@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 require 'rubygems'
 require 'fileutils'
 
@@ -6,7 +6,7 @@ describe "Site Generation" do
   include RubiGen::GeneratorTestHelper
   include Helpers::Generator
   include Helpers::Taza
-  
+
   before :all do
     @spec_helper = File.join(TMP_ROOT,PROJECT_NAME,'spec','spec_helper.rb')
     @site_name = "WikipediaFoo"
@@ -42,7 +42,7 @@ describe "Site Generation" do
     run_generator('site', [@site_name], generator_sources)
     File.directory?(File.join(PROJECT_FOLDER,'spec','isolation','wikipedia_foo')).should be_true
   end
-  
+
   it "generated site that uses the block given in new" do
     @site_class = generate_site(@site_name)
     stub_settings

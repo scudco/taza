@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 require 'taza/fixture'
 require 'extensions/array'
 
@@ -25,13 +25,13 @@ describe Taza::Fixture do
     fixture.pluralized_fixture_exists?('example').should be_true
     fixture.pluralized_fixture_exists?('boo').should be_false
   end
-  
+
   it "should be able to get all fixtures loaded excluding sub-folder fixtures" do
     fixture = Taza::Fixture.new
     fixture.load_fixtures_from(@base_path)
     fixture.fixture_names.should be_equivalent([:examples,:users,:foos])
   end
-  
+
   it "should be able to get specific fixture entities" do
     fixture = Taza::Fixture.new
     fixture.load_fixtures_from(@base_path)

@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 require 'taza/page'
 
 describe "Taza Page Module" do
@@ -136,7 +136,7 @@ describe "Taza Page Module" do
     lambda { page.sample_element }.should raise_error(Taza::FilterError)
     page.another_sample_element.should eql(:something)
   end
-  
+
   class PageWithFiltersAndModulesAndElements < ::Taza::Page
     page_module :foo_module do
       element(:sample_element) {:something}
