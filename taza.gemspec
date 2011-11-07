@@ -11,8 +11,9 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/hammernight/taza"
   s.summary = "Taza is a page object framework."
   s.description = ["Taza is a page object framework."]
-
+  s.required_ruby_version     = '>= 1.8.7'
   s.rubyforge_project = "taza"
+
   s.add_runtime_dependency(%q<rake>, ["~> 0.8.3"])
   s.add_runtime_dependency(%q<mocha>, ["~> 0.9.3"])
   s.add_runtime_dependency(%q<rspec>, ["~> 2.6"])
