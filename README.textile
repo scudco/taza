@@ -1,1 +1,1 @@
-"Taza Wiki":http://github.com/scudco/taza/wikis
+taza is now maintained by the hammernight org at https://github.com/hammernight/taza
